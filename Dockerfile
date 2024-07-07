@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk-alpine
 WORKDIR /opt
-ENV PORT 8080
-EXPOSE 8080
+ENV PORT 9091
+EXPOSE 9091
 MAINTAINER dheeraj198922
-COPY target/openeye-employee-service.jar openeye-employee-service.jar
-ENTRYPOINT ["java","-jar","/openeye-employee-service.jar"]
+COPY ./target/OpenEye_Employee_Service.jar /opt
+ENTRYPOINT ["java","-jar","OpenEye_Employee_Service.jar"]

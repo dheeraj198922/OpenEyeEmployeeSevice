@@ -8,6 +8,18 @@ server:
 spring:
   application:
     name: EMPLOYEE-SERVICE
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+    url: jdbc:mysql://mysqldb/openeye?createDatabaseIfNotExist=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
   config:
     import: optional:configserver:http://192.168.1.47:8888
 springdoc:
@@ -15,3 +27,15 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger-ui.html
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost    
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
