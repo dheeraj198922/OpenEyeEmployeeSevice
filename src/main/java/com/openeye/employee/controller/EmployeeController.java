@@ -23,34 +23,36 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@PostMapping
-	public ResponseEntity<ResponseMessage> addEmployee(@RequestBody Employee employee){
-		employeeService.addEmployee(employee);
+	public ResponseEntity<ResponseMessage> addEmployee(@RequestBody Employee employee) {
 		ResponseMessage responseMessage = new ResponseMessage();
+		if (employee.getEmployeerAssociateId() == null || employee.getFirstName() == null
+				|| employee.getLastName() == null || employee.getGender() == null || employee.getAge() == 0) {
+			responseMessage = new ResponseMessage();
+			responseMessage.setMesssage("Request is invalid");
+			responseMessage.setTimestamp(LocalDateTime.now());
+			return new ResponseEntity<>(responseMessage, HttpStatus.BAD_REQUEST);
+		}
+		employeeService.addEmployee(employee);
+		
 		responseMessage.setMesssage("Employee added successfully");
 		responseMessage.setTimestamp(LocalDateTime.now());
 		return new ResponseEntity<>(responseMessage, HttpStatus.CREATED);
-		
+
 	}
-	
+
 	@GetMapping("/{employeeId}")
-	public ResponseEntity<Employee> getEmployee(@PathVariable("employeeId") Long employeeId){
-		try {
-			System.out.println("going for wail of 5s" + Thread.currentThread().getName());
-			Thread.currentThread().wait(5000);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public ResponseEntity<Employee> getEmployee(@PathVariable("employeeId") Long employeeId) {
 		Employee employee = employeeService.getEmployee(employeeId);
 		return new ResponseEntity<>(employee, HttpStatus.OK);
-		
+
 	}
-	
+
 	@GetMapping
-	public ResponseEntity<List<Employee>> getEmployees(){
+	public ResponseEntity<List<Employee>> getEmployees() {
 		List<Employee> employees = employeeService.getEmployees();
 		return new ResponseEntity<>(employees, HttpStatus.OK);
-		
+
 	}
 }

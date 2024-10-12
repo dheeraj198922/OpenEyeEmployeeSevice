@@ -10,8 +10,8 @@ spring:
     name: EMPLOYEE-SERVICE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    
-    url: jdbc:mysql://mysqldb/openeye?createDatabaseIfNotExist=true
+#     url: jdbc:mysql://mysqldb/openeye?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/openeye?createDatabaseIfNotExist=true
     username: root
     password: root
   jpa:
